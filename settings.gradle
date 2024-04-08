@@ -1,0 +1,11 @@
+include 'insurance_calculator_app'
+include 'doc_generator_app'
+include 'black_list_app'
+include 'file_storage_app'
+include 'black_list_app'
+include 'elk'
+include 'elk:filebeat'
+include 'elk:logstash'
+include 'elk:metricbeat'
+
+

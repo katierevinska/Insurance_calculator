@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet author="katierevinska" id="46">
+        <dropNotNullConstraint  tableName="person_agreements" columnName="medical_risk_limit_level"
+                                columnDataType="VARCHAR(200)"/>
+    </changeSet>
+    <changeSet author="katierevinska" id="add_column">
+        <addColumn tableName="agreements">
+            <column name="already_exported" type="boolean" defaultValue="false"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="katierevinska" id="47">
+        <createTable tableName="agreements_ack">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="agreement_uuid" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="already_exported" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_path" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="katierevinska" id="48">
+        <createIndex indexName="ix_agreement_uuid_file_path"
+                     tableName="agreements_ack"
+                     unique="true">
+            <column name="agreement_uuid"/>
+            <column name="file_path"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
